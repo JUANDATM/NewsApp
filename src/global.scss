@@ -9,18 +9,84 @@
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
 
+
 /* Core CSS required for Ionic components to work properly */
+
 @import "~@ionic/angular/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
+
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
 @import '~@ionic/angular/css/display.css';
 
 /* Optional CSS utils that can be commented out */
+
 @import "~@ionic/angular/css/padding.css";
 @import "~@ionic/angular/css/float-elements.css";
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+:root {
+    --ion-color-chido: #00bcd4;
+    --ion-color-chido-rgb: 0, 188, 212;
+    --ion-color-chido-contrast: #000000;
+    --ion-color-chido-contrast-rgb: 0, 0, 0;
+    --ion-color-chido-shade: #00a5bb;
+    --ion-color-chido-tint: #1ac3d8;
+}
+
+.ion-color-chido {
+    --ion-color-base: var(--ion-color-chido);
+    --ion-color-base-rgb: var(--ion-color-chido-rgb);
+    --ion-color-contrast: var(--ion-color-chido-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-chido-contrast-rgb);
+    --ion-color-shade: var(--ion-color-chido-shade);
+    --ion-color-tint: var(--ion-color-chido-tint);
+}
+
+:root {
+    --ion-color-rojo: #f4511e;
+    --ion-color-rojo-rgb: 244, 81, 30;
+    --ion-color-rojo-contrast: #ffffff;
+    --ion-color-rojo-contrast-rgb: 255, 255, 255;
+    --ion-color-rojo-shade: #d7471a;
+    --ion-color-rojo-tint: #f56235;
+}
+
+.ion-color-rojo {
+    --ion-color-base: var(--ion-color-rojo);
+    --ion-color-base-rgb: var(--ion-color-rojo-rgb);
+    --ion-color-contrast: var(--ion-color-rojo-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-rojo-contrast-rgb);
+    --ion-color-shade: var(--ion-color-rojo-shade);
+    --ion-color-tint: var(--ion-color-rojo-tint);
+}
+
+:root {
+    --ion-color-amarilloperron: #ffff8d;
+    --ion-color-amarilloperron-rgb: 255, 255, 141;
+    --ion-color-amarilloperron-contrast: #000000;
+    --ion-color-amarilloperron-contrast-rgb: 0, 0, 0;
+    --ion-color-amarilloperron-shade: #e0e07c;
+    --ion-color-amarilloperron-tint: #ffff98;
+}
+
+.ion-color-amarilloperron {
+    --ion-color-base: var(--ion-color-amarilloperron);
+    --ion-color-base-rgb: var(--ion-color-amarilloperron-rgb);
+    --ion-color-contrast: var(--ion-color-amarilloperron-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-amarilloperron-contrast-rgb);
+    --ion-color-shade: var(--ion-color-amarilloperron-shade);
+    --ion-color-tint: var(--ion-color-amarilloperron-tint);
+}
+
+.text-primary {
+    color: var(--ion-color-amarilloperron) !important
+}
+
+.noticia-source-name {
+    font-size: 12px;
+    color: var(--ion-color-amarilloperron);
+}
