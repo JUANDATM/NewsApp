@@ -28,8 +28,8 @@ constructor(private noticiasService: NoticiasService) {}
   }
   cargarNoticias(categoria: string, event?) {
     this.noticiasService.getTopHeadlinesCategoria(categoria)
-      .subscribe(resp => {
-      this.noticias.push( ...resp.articles );
+      .subscribe((resp: any)  => {
+      this.noticias.push( ...resp.articles);
       if (event) {
         event.target.complete();
       }

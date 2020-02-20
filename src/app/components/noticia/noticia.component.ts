@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Article } from '../../interfaces/interfaces';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { browser } from 'protractor';
+import { ActionSheetController } from '@ionic/angular';
 
 
 @Component({
@@ -12,12 +13,42 @@ import { browser } from 'protractor';
 export class NoticiaComponent implements OnInit {
   @Input() noticia: Article;
   @Input() indice: number;
-  constructor(private iab: InAppBrowser) { }
+  constructor(private iab: InAppBrowser, private actionSheetController: ActionSheetController) { }
 
   ngOnInit() {}
 
   abrirNoticia() {
 // console.log('noticia :', this.noticia.url);
 const browser = this.iab.create(this.noticia.url, '_system');
+}
+
+async lanzarMenu(){
+  const actionSheet = await this.actionSheetController.create({
+    buttons: [{
+      text: 'Favorito ',
+      icon: 'heart-outline',
+      cssClass: 'action-dark',
+      handler: () => {
+        console.log('Favorito clicked');
+      }
+    }, {
+      text: 'Compartir',
+      icon: 'share-outline',
+      cssClass: 'action-dark',
+      handler: () => {
+        console.log('Compartir clicked');
+      }
+    },
+    {
+      text: 'Cancel',
+      icon: 'close',
+      cssClass: 'action-dark',
+      role: 'cancel',
+      handler: () => {
+        console.log('Cancel clicked');
+      }
+    }]
+  });
+  await actionSheet.present();
 }
 }

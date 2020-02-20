@@ -20,7 +20,7 @@ export class Tab1Page implements OnInit {
   }
   cargarNoticias(event?) {
     this.noticiasservice.getTopHeadlines()
-    .subscribe(resp => {
+    .subscribe((resp: any) => {
       if (resp.articles.length === 0) {
         event.target.disabled = true;
         event.target.complete();
