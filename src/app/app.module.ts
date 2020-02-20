@@ -11,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgIf } from '@angular/common';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +19,7 @@ import { NgIf } from '@angular/common';
   imports: [HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [
     StatusBar,
+    InAppBrowser,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
