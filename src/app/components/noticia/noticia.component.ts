@@ -1,8 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Article } from '../../interfaces/interfaces';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { browser } from 'protractor';
 import { ActionSheetController } from '@ionic/angular';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { DataLocalService } from '../../services/data-local.service';
+
+
 
 
 @Component({
@@ -13,30 +16,59 @@ import { ActionSheetController } from '@ionic/angular';
 export class NoticiaComponent implements OnInit {
   @Input() noticia: Article;
   @Input() indice: number;
-  constructor(private iab: InAppBrowser, private actionSheetController: ActionSheetController) { }
+  @Input() enFavoritos;
 
-  ngOnInit() {}
+  constructor(private iab: InAppBrowser, private dataLocalService: DataLocalService, private socialsharing: SocialSharing, private actionSheetController: ActionSheetController) { }
+
+  ngOnInit() {
+  }
 
   abrirNoticia() {
 // console.log('noticia :', this.noticia.url);
 const browser = this.iab.create(this.noticia.url, '_system');
 }
 
-async lanzarMenu(){
-  const actionSheet = await this.actionSheetController.create({
-    buttons: [{
-      text: 'Favorito ',
+async lanzarMenu() {
+  let guardarBorrarBtn;
+
+  if (this.enFavoritos) {
+    guardarBorrarBtn = {
+      text: 'Borrar de Favoritos ',
+      icon: 'trash-outline',
+      cssClass: 'action-dark',
+      handler: () => {
+        console.log('Favorito Borrado');
+        this.dataLocalService.borrarNoticia(this.noticia);
+      }
+    };
+  } else {
+    guardarBorrarBtn = {
+      text: 'Agregar a Favoritos ',
       icon: 'heart-outline',
       cssClass: 'action-dark',
       handler: () => {
-        console.log('Favorito clicked');
+        console.log('Favorito Agregado');
+        this.dataLocalService.guardarNoticia(this.noticia);
       }
-    }, {
+    };
+  }
+
+
+  const actionSheet = await this.actionSheetController.create({
+    buttons: [
+      guardarBorrarBtn
+      , {
       text: 'Compartir',
       icon: 'share-outline',
       cssClass: 'action-dark',
       handler: () => {
         console.log('Compartir clicked');
+        this.socialsharing.share(
+          this.noticia.title,
+          this.noticia.source.name,
+          '',
+          this.noticia.url
+        );
       }
     },
     {
