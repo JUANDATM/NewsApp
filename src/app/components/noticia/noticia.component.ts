@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Article } from '../../interfaces/interfaces';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, Platform } from '@ionic/angular';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { DataLocalService } from '../../services/data-local.service';
 
@@ -18,7 +18,7 @@ export class NoticiaComponent implements OnInit {
   @Input() indice: number;
   @Input() enFavoritos;
 
-  constructor(private iab: InAppBrowser, private dataLocalService: DataLocalService, private socialsharing: SocialSharing, private actionSheetController: ActionSheetController) { }
+  constructor(private iab: InAppBrowser, private dataLocalService: DataLocalService, private socialsharing: SocialSharing, private actionSheetController: ActionSheetController, private plataform: Platform) { }
 
   ngOnInit() {
   }
@@ -63,12 +63,7 @@ async lanzarMenu() {
       cssClass: 'action-dark',
       handler: () => {
         console.log('Compartir clicked');
-        this.socialsharing.share(
-          this.noticia.title,
-          this.noticia.source.name,
-          '',
-          this.noticia.url
-        );
+        this.compartirNoticia();
       }
     },
     {
@@ -82,5 +77,27 @@ async lanzarMenu() {
     }]
   });
   await actionSheet.present();
+}
+
+compartirNoticia() {
+   if ( this.plataform.is('cordova')) {
+    this.compartirNoticia();
+    this.socialsharing.share(
+      this.noticia.title,
+      this.noticia.source.name,
+      '',
+      this.noticia.url
+    );
+   } else {
+    if (navigator['share']) {
+      navigator['share']({
+        title: this.noticia.title,
+        text: this.noticia.description,
+        url: this.noticia.url,
+      })
+        .then(() => console.log('Compartido Exitosamente'))
+        .catch((error) => console.log('Error al Compartir', error));
+    }
+   }
 }
 }
